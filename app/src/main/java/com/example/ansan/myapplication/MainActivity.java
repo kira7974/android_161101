@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,16 +32,41 @@ public class MainActivity extends AppCompatActivity {
         }
         String strPath = Environment.getExternalStorageDirectory().getAbsolutePath();   //외장메모리 경로 찾기
         Toast.makeText(this,strPath,Toast.LENGTH_SHORT).show();
-
+        File mydir = new File(strPath + "/test");
         switch (v.getId()){
-            case R.id.button: File mydir = new File(strPath + "/Kulikara"); //폴더생성
+            case R.id.button:
                 mydir.mkdir();
+                Toast.makeText(this,"폴더 생성 완료",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button2:
+                mydir.delete();
+                Toast.makeText(this,"폴더 삭제 완료",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.button3:
+            case R.id.button3: String filename = strPath +"/test.txt";
+                try {
+                    FileOutputStream fos = new FileOutputStream(filename);
+                    fos.write("머엉~".getBytes());
+                    fos.close();
+                    Toast.makeText(this,"저장 완료",Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
-            case R.id.button4:
+            case R.id.button4: filename = strPath +"/test.txt";
+                try {
+                    FileInputStream fos = new FileInputStream(filename);
+                    byte arr[] = new byte[fos.available()];
+                    fos.read(arr);
+                    fos.close();
+                    String str = new String(arr);
+                    Toast.makeText(this,"파일내용 : "+ str,Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
 
 
