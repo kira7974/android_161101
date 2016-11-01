@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
@@ -18,11 +19,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-
+    EditText e1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        e1 = (EditText)findViewById(R.id.editText);
     }
 
     public void onClick(View v){
@@ -67,6 +69,17 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.button5: File[] filelist = new File(strPath).listFiles();  //폴더 목록 가져오기
+                String str = "";
+                for(int i = 0;i < filelist.length; i++){
+                    if(filelist[i].isDirectory())
+                        str +="<폴더>" + filelist[i].toString() + "\n";
+                    else
+                        str +="<파일>" + filelist[i].toString() + "\n";
+                }
+                e1.setText(str);
+                Toast.makeText(this,"파일 목록 가져오기 성공!!!",Toast.LENGTH_SHORT).show();
                 break;
 
 
