@@ -14,7 +14,8 @@
         android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="폴더생성" />
+        android:text="폴더생성"
+        android:id="@+id/button" />
 
     <Button
         android:onClick="onClick"
